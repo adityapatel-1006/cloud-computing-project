@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Architecture Diagram - Student Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b1120;
+            color: #e2e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 2rem 1rem;
+        }
+        .container-box {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .header-title {
+            color: #38bdf8;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .k8s-cluster {
+            border: 2px dashed #0284c7;
+            background: rgba(14, 165, 233, 0.03);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .component-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+        }
+        .component-card:hover {
+            transform: translateY(-4px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);
+        }
+        .badge-k8s {
+            background: #0369a1;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .arrow-indicator {
+            color: #38bdf8;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-box">
+    <div class="text-center mb-4">
+        <h2 class="header-title"><i class="bi bi-cloud-arrow-up-fill me-2"></i>Cloud-Based Student Management System</h2>
+        <p class="text-secondary">High-Availability Kubernetes Microservices Architecture with Horizontal Pod Autoscaling (HPA)</p>
+    </div>
+
+    <!-- Visual Architecture Layout -->
+    <div class="row g-3 align-items-center">
+        <!-- Client Layer -->
+        <div class="col-md-2">
+            <div class="component-card text-center mb-3">
+                <i class="bi bi-browser-chrome fs-1 text-primary"></i>
+                <h6 class="mt-2 mb-1 fw-bold">Web Browsers</h6>
+                <small class="text-muted">Port 80 / 443<br>Student & Staff UI</small>
+            </div>
+            <div class="component-card text-center">
+                <i class="bi bi-speedometer2 fs-1 text-danger"></i>
+                <h6 class="mt-2 mb-1 fw-bold">Load Test Agent</h6>
+                <small class="text-muted">HPA Stress Generator<br>wrk / ApacheBench</small>
+            </div>
+        </div>
+
+        <!-- Ingress / Routing Arrow -->
+        <div class="col-md-1 arrow-indicator text-center">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </div>
+
+        <!-- Kubernetes Cluster Boundary -->
+        <div class="col-md-9">
+            <div class="k8s-cluster">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge badge-k8s px-3 py-2"><i class="bi bi-boxes me-1"></i> Kubernetes Namespace: student-system</span>
+                    <span class="text-muted small">Managed Kubernetes Cluster (EKS / GKE)</span>
+                </div>
+
+                <!-- Services Layer -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-12">
+                        <div class="component-card d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0 fw-bold text-success"><i class="bi bi-hdd-network-fill me-2"></i>Service: student-app-service</h6>
+                                <small class="text-muted">Type: NodePort (Port: 80 &rarr; TargetPort: 5000, NodePort: 30080) | Round-Robin Load Balancing</small>
+                            </div>
+                            <span class="badge bg-success">Active Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Pods & HPA Layer -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-8">
+                        <div class="p-3 border border-primary border-opacity-25 rounded bg-dark bg-opacity-50">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold text-info"><i class="bi bi-layers-fill me-1"></i> Deployment: student-app-deployment</span>
+                                <span class="badge bg-primary">Replicas: 2..8 (Dynamic)</span>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <div class="component-card p-2 text-center border-info">
+                                        <i class="bi bi-box-seam text-info fs-3"></i>
+                                        <div class="fw-bold small mt-1">student-app-pod-1</div>
+                                        <span class="badge bg-success small" style="font-size: 0.65rem;">Status: Running</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="component-card p-2 text-center border-info">
+                                        <i class="bi bi-box-seam text-info fs-3"></i>
+                                        <div class="fw-bold small mt-1">student-app-pod-2</div>
+                                        <span class="badge bg-success small" style="font-size: 0.65rem;">Status: Running</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="component-card h-100 border-warning">
+                            <h6 class="fw-bold text-warning mb-1"><i class="bi bi-arrow-repeat me-1"></i> HPA Controller</h6>
+                            <p class="small text-muted mb-2">Target CPU: 50% | Min: 2, Max: 8</p>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 35%"></div>
+                            </div>
+                            <small class="text-info d-block">Automatic horizontal scaling based on metrics</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuration & Database Layer -->
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <div class="component-card h-100">
+                            <h6 class="fw-bold text-light mb-1"><i class="bi bi-key-fill me-1 text-warning"></i> Config & Secrets</h6>
+                            <ul class="list-unstyled small text-muted mb-0">
+                                <li>• ConfigMap: <code>student-app-config</code></li>
+                                <li>• Secret: <code>student-app-secret</code></li>
+                                <li>• Health Probes: <code>/health</code> & <code>/metrics</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="component-card h-100 border-success">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="fw-bold text-success mb-1"><i class="bi bi-database-fill me-1"></i> PostgreSQL Stateful Layer</h6>
+                                <span class="badge bg-secondary">ClusterIP: 5432</span>
+                            </div>
+                            <p class="small text-muted mb-1">Stateful Deployment with PersistentVolumeClaim (<code>postgres-pvc</code>: 2Gi)</p>
+                            <small class="text-light"><i class="bi bi-shield-check text-success me-1"></i> Data persistence guaranteed across pod restarts</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Row -->
+    <div class="row g-3 mt-4 pt-3 border-top border-secondary">
+        <div class="col-md-3 text-center">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            <span class="small fw-semibold">Zero-Downtime Rolling Updates</span>
+        </div>
+        <div class="col-md-3 text-center">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            <span class="small fw-semibold">Self-Healing Pod Re-creation</span>
+        </div>
+        <div class="col-md-3 text-center">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            <span class="small fw-semibold">Dynamic Horizontal Scaling (HPA)</span>
+        </div>
+        <div class="col-md-3 text-center">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            <span class="small fw-semibold">Automated Health Checks</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+========================================================================
+PUBLIC GITHUB REPOSITORY LINK
+Cloud Computing Project: Cloud-Based Student Management System
+========================================================================
+
+Student Name        : Aditya Patel
+Section             : 3CSE23
+University          : IILM UNIVERSITY
+Project Name        : Cloud-Based Student Management System
+
+PUBLIC GITHUB REPOSITORY LINK:
+https://github.com/adityapatel/Cloud-Based-Student-Management-System
+
+Repository Visibility: PUBLIC (Mandatory Requirement)
+Subject / Domain     : Cloud Computing & Container Orchestration
+
+------------------------------------------------------------------------
+HOW TO PUSH THIS PROJECT TO YOUR PUBLIC GITHUB REPOSITORY:
+------------------------------------------------------------------------
+
+1. Create a new public repository on GitHub:
+   - Visit: https://github.com/new
+   - Repository Name: Cloud-Based-Student-Management-System
+   - Description    : Cloud-Native Student Management System built with Flask, PostgreSQL, Docker, and Kubernetes (HPA, Self-Healing, High Availability)
+   - Visibility     : PUBLIC (Ensure "Public" is selected)
+   - Do NOT check "Add a README file" (it is already included)
+
+2. Open PowerShell in this folder:
+   cd "c:\Users\adity\OneDrive\Desktop\Cloud Project"
+
+3. Initialize Git and commit all files:
+   git init
+   git add .
+   git commit -m "Submit Cloud-Based Student Management System - Aditya Patel (3CSE23)"
+
+4. Link to your GitHub remote and push:
+   git branch -M main
+   git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/Cloud-Based-Student-Management-System.git
+   git push -u origin main
+
+5. Verify:
+   Visit your repository URL in your web browser to ensure all source files, documentation, and diagrams are visible.
